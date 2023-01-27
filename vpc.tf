@@ -98,4 +98,19 @@ resource "aws_network_acl" "public" {
   }
 }
 
+resource "aws_network_acl_association" "private_asc_1" {
+  network_acl_id = aws_network_acl.private.id
+  subnet_id      = aws_subnet.private1.id
+}
+
+resource "aws_network_acl_association" "private_asc_2" {
+  network_acl_id = aws_network_acl.private.id
+  subnet_id      = aws_subnet.private2.id
+}
+
+resource "aws_network_acl_association" "public_asc" {
+  network_acl_id = aws_network_acl.private.id
+  subnet_id      = aws_subnet.public.id
+}
+
 
