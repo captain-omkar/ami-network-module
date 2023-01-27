@@ -99,18 +99,21 @@ resource "aws_network_acl" "public" {
 }
 
 resource "aws_network_acl_association" "private_asc_1" {
+  for_each = aws_subnet.private1
   network_acl_id = aws_network_acl.private.id
-  subnet_id      = aws_subnet.private1.id
+  subnet_id      = each.value.id
 }
 
 resource "aws_network_acl_association" "private_asc_2" {
+  for_each = aws_subnet.private2
   network_acl_id = aws_network_acl.private.id
-  subnet_id      = aws_subnet.private2.id
+  subnet_id      = each.value.id
 }
 
 resource "aws_network_acl_association" "public_asc" {
+  for_each = aws_subnet.public
   network_acl_id = aws_network_acl.private.id
-  subnet_id      = aws_subnet.public.id
+  subnet_id      = each.value.id
 }
 
 
